@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BreadCrumb from "./components/breadCrumb";
+import BreadCrumb from "../../components/breadCrumb";
 
 const Dashboard = () => {
   const breadCrumbLinkDetails = [

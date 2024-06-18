@@ -1,6 +1,6 @@
-import TableComponent from "@/app/components/TableComponent";
 import React from "react";
-import BreadCrumb from "../components/breadCrumb";
+import BreadCrumb from "../../../components/breadCrumb";
+import TableComponent from "../../../components/tableComponent";
 
 const Companies = () => {
   const sampleData = [

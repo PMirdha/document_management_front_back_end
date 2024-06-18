@@ -3,8 +3,12 @@ import Link from "next/link";
 const BreadCrumb = ({ linkesDetails, title }) => {
   const breadCrumbLinks = linkesDetails?.map((linkDetails) => {
     return (
-      <li className="breadcrumb-item" active={linkDetails?.isActive}>
-        <Link href={linkDetails.link}>{linkDetails.title}</Link>
+      <li className={`breadcrumb-item ${linkDetails.isActive ? "active" : ""}`}>
+        {linkDetails.isActive ? (
+          linkDetails.title
+        ) : (
+          <Link href={linkDetails.link}>{linkDetails.title}</Link>
+        )}
       </li>
     );
   });

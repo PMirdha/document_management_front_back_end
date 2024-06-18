@@ -218,14 +218,11 @@ const TableComponent = ({ data }) => {
                 <td className="px-6 py-4 border-b border-gray-200 text-left">
                   <div className="flex space-x-2">
                     <Link
-                      href={`/dashboard/companies/${item.id}`}
+                      href={`/admin/dashboard/companies/${item.id}`}
                       className="text-blue-600 hover:text-blue-900"
                     >
                       <EyeIcon className="h-5 w-5" />
                     </Link>
-                    {/* <button className="text-blue-600 hover:text-blue-900" onClick={() => router.push(`/dashboard/companies/${item.id}`)}>
-                      <EyeIcon className="h-5 w-5" />
-                    </button> */}
                     <button className="text-green-600 hover:text-green-900">
                       <PencilAltIcon className="h-5 w-5" />
                     </button>
