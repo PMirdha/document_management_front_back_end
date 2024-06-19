@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const DashboardSideBar = () => {
+const CompanySideBar = ({ params }) => {
   return (
     <aside id="sidebar" className="sidebar">
       <ul className="sidebar-nav" id="sidebar-nav">
@@ -14,10 +14,20 @@ const DashboardSideBar = () => {
         <li className="nav-item">
           <Link
             className="nav-link collapsed"
-            href="/admin/dashboard/companies"
+            href={`/admin/company/${params.companyId}/director`}
           >
             <i className="bi bi-layout-text-window-reverse"></i>
-            <span>Companies</span>
+            <span>Directors</span>
+          </Link>
+        </li>
+
+        <li className="nav-item">
+          <Link
+            className="nav-link collapsed"
+            href={`/admin/company/${params.companyId}/employee`}
+          >
+            <i className="bi bi-layout-text-window-reverse"></i>
+            <span>Employees</span>
           </Link>
         </li>
 
@@ -110,4 +120,4 @@ const DashboardSideBar = () => {
   );
 };
 
-export default DashboardSideBar;
+export default CompanySideBar;

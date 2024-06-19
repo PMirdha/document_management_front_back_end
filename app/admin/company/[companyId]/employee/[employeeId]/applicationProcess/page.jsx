@@ -76,8 +76,12 @@ const ApplicationProcess = ({ params }) => {
       title: `Company-${params.companyId}`,
     },
     {
-      link: `/admin/company/${params.companyId}/application_process`,
-      title: "Application Process",
+      link: `/admin/company/${params.companyId}/employee/${params.employeeId}`,
+      title: `Employee-${params.employeeId}`,
+    },
+    {
+      link: `/admin/company/${params.companyId}/employee/${params.employeeId}/application_process`,
+      title: "Employee Application Process",
       isActive: true,
     },
   ];
@@ -85,13 +89,13 @@ const ApplicationProcess = ({ params }) => {
   return (
     <>
       <BreadCrumb
-        title={"Company Application Process"}
+        title={"Employee Application Process"}
         linkesDetails={breadCrumbLinkDetails}
       />
 
       <div className="p-4 sm:p-10 bg-white min-h-screen">
         <h1 className="text-2xl sm:text-4xl font-bold mb-6 text-blue-700">
-          Company Application Process
+          Employee Application Process
         </h1>
         <div className="flex flex-col sm:flex-row items-start">
           <div className="relative w-full sm:w-1 bg-gray-300 sm:h-full sm:mx-4">
