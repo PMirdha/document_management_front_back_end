@@ -44,7 +44,7 @@ const initialProcesses = [
   },
 ];
 
-const ApplicationProcess = ({ params }) => {
+const DirectorApplicationProcess = ({ params }) => {
   const [processes, setProcesses] = useState(initialProcesses);
 
   const completeProcess = (id) => {
@@ -102,11 +102,10 @@ const ApplicationProcess = ({ params }) => {
             <div
               className="absolute w-full sm:w-1 bg-blue-600"
               style={{
-                height: `${
-                  (processes.filter((p) => p.state === "completed").length /
+                height: `${(processes.filter((p) => p.state === "completed").length /
                     processes.length) *
                   100
-                }%`,
+                  }%`,
               }}
             ></div>
           </div>
@@ -140,4 +139,4 @@ const ApplicationProcess = ({ params }) => {
   );
 };
 
-export default ApplicationProcess;
+export default DirectorApplicationProcess;
