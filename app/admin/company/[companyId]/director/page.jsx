@@ -1,6 +1,8 @@
 "use client";
+import Link from 'next/link';
 import React, { useState } from 'react';
 import { FaEye, FaEdit, FaTrash, FaPlus, FaCheck, FaClock, FaTimes, FaUserPlus } from 'react-icons/fa';
+import BreadCrumb from '../../../../components/breadCrumb';
 
 const directors = [
   { id: 1, name: 'John Doe', email: 'john.doe@example.com', phone: '123-456-7890', status: 'Completed' },
@@ -22,7 +24,7 @@ const getStatusColor = (status) => {
   }
 };
 
-const DirectorList = () => {
+const DirectorList = ({ params }) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedDirector, setSelectedDirector] = useState(null);
   const handleDeleteDirector = (director) => {
@@ -51,25 +53,37 @@ const DirectorList = () => {
     // Add logic for adding a new director
   };
 
+  const breadCrumbLinkDetails = [
+    { link: "/", title: "Home" },
+    {
+      link: `/admin/company/${params.companyId}/`,
+      title: `Company-${params.companyId}`,
+    },
+    {
+      link: `/admin/company/${params.companyId}/director`,
+      title: "Director List",
+      isActive: true,
+    },
+  ];
+
   return (
     <>
+      <BreadCrumb title={"Director List"} linkesDetails={breadCrumbLinkDetails} />
       <div className="container mx-auto px-4 py-6">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl sm:text-3xl font-bold">Directors</h1>
           {/* Responsive button */}
-          <button
-            className="flex items-center bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded sm:hidden"
-            onClick={handleAddDirector}
+          <Link className="flex items-center bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded sm:hidden"
+            href={`/admin/company/${params.companyId}/director/add`}
           >
             <FaUserPlus className="text-lg" />
-          </button>
-          <button
-            className="hidden sm:flex items-center bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
-            onClick={handleAddDirector}
+          </Link>
+          <Link className="hidden sm:flex items-center bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
+            href={`/admin/company/${params.companyId}/director/add`}
           >
             <FaPlus className="mr-2" />
             Add Director
-          </button>
+          </Link>
         </div>
         <div className="overflow-x-auto">
           <table className="min-w-full bg-white border border-gray-200">
@@ -93,23 +107,19 @@ const DirectorList = () => {
                   <td className="border-t px-4 py-2 text-gray-800">{director.status}</td>
                   <td className="border-t px-4 py-2 text-center">
                     <div className="flex justify-center space-x-4">
-                      <button
-                        className="text-blue-500 hover:text-blue-700"
-                        title="View Application Process"
-                        onClick={() => handleViewDirector(director)}
-                      >
+                      <Link className="text-blue-500 hover:text-blue-700" title='View Application Process'
+                        href={`/admin/company/${params.companyId}/director/${director.id}/application_process`}>
                         <FaEye className="w-5 h-5" />
-                      </button>
-                      <button
-                        className="text-green-500 hover:text-green-700"
-                        title="Edit Employee Details"
-                        onClick={handleEditDirector}
-                      >
+                      </Link>
+
+                      <Link className="text-green-500 hover:text-green-700" title='Edit Director Details'
+                        href={`/admin/company/${params.companyId}/director/${director.id}/edit`}>
                         <FaEdit className="w-5 h-5" />
-                      </button>
+                      </Link>
+
                       <button
                         className="text-red-500 hover:text-red-700"
-                        title="Delete Employee"
+                        title="Delete Director"
                         onClick={() => handleDeleteDirector(director)}
                       >
                         <FaTrash className="w-5 h-5" />
@@ -130,71 +140,6 @@ const DirectorList = () => {
           />
         )}
       </div>
-      {/* ------------------------------------------------------------------------------------ */}
-      {/* <div className="container mx-auto px-4 py-4">
-        <div className="flex justify-between items-center my-6">
-          <h1 className="text-xl font-bold">Directors</h1>
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full flex items-center"
-            onClick={handleAddDirector}
-          >
-            <FaPlus className="mr-2" />
-            {!isMobile && 'Add Director'}
-          </button>
-        </div>
-
-        <div className="overflow-x-auto">
-          <table className="min-w-full bg-white border border-gray-200 text-sm">
-            <thead>
-              <tr>
-                <th className="px-2 py-2 border-b text-left">Name</th>
-                <th className="px-2 py-2 border-b text-left">Email</th>
-                <th className="px-2 py-2 border-b text-left">Phone</th>
-                <th className="px-2 py-2 border-b text-left">Status</th>
-                <th className="px-2 py-2 border-b text-center">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {directors.map(director => (
-                <tr key={director.id} className={`${statusColors[director.status]} hover:bg-gray-100 text-xs sm:text-sm`}>
-                  <td className="px-2 py-2 border-b">{director.name}</td>
-                  <td className="px-2 py-2 border-b">{director.email}</td>
-                  <td className="px-2 py-2 border-b">{director.phone}</td>
-                  <td className="px-2 py-2 border-b">{director.status}</td>
-                  <td className="px-2 py-2 border-b flex justify-center items-center space-x-2">
-                    <button
-                      className="bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 focus:outline-none"
-                      onClick={() => handleView(director)}
-                    >
-                      <FaEye />
-                    </button>
-                    <button
-                      className="bg-green-500 text-white p-2 rounded-full hover:bg-green-600 focus:outline-none"
-                      onClick={() => handleEditDirector(director)}
-                    >
-                      <FaEdit />
-                    </button>
-                    <button
-                      className="bg-red-500 text-white p-2 rounded-full hover:bg-red-600 focus:outline-none"
-                      onClick={() => handleDeleteDirector(director)}
-                    >
-                      <FaTrash />
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        {showModal && (
-          <DeleteModal
-            director={selectedDirector}
-            onClose={() => setShowModal(false)}
-            onConfirm={confirmDirectorDelete}
-          />
-        )}
-      </div> */}
     </>
   );
 };

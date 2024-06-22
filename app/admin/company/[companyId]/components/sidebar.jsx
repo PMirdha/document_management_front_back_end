@@ -5,7 +5,7 @@ const CompanySideBar = ({ params }) => {
     <aside id="sidebar" className="sidebar">
       <ul className="sidebar-nav" id="sidebar-nav">
         <li className="nav-item">
-          <Link className="nav-link " href="/admin/dashboard">
+          <Link className="nav-link " href={`/admin/company/${params.companyId}`}>
             <i className="bi bi-grid"></i>
             <span>Dashboard</span>
           </Link>

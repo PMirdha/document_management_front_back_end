@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import ProcessCard from "./processCard";
-import BreadCrumb from "../../../../components/breadCrumb";
 
 // Sample data for processes with documents
 const initialProcesses = [
@@ -88,10 +87,10 @@ const DirectorApplicationProcess = ({ params }) => {
 
   return (
     <>
-      <BreadCrumb
+      {/* <BreadCrumb
         title={"Director Application Process"}
         linkesDetails={breadCrumbLinkDetails}
-      />
+      /> */}
 
       <div className="p-4 sm:p-10 bg-white min-h-screen">
         <h1 className="text-2xl sm:text-4xl font-bold mb-6 text-blue-700">
@@ -103,7 +102,7 @@ const DirectorApplicationProcess = ({ params }) => {
               className="absolute w-full sm:w-1 bg-blue-600"
               style={{
                 height: `${(processes.filter((p) => p.state === "completed").length /
-                    processes.length) *
+                  processes.length) *
                   100
                   }%`,
               }}

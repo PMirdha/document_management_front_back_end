@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { FaUser, FaEnvelope, FaPhone, FaBriefcase, FaHome, FaCity, FaGlobe, FaMapPin, FaUpload } from 'react-icons/fa';
 
-const EditDirectorDetails = ({ params }) => {
+const AddCompanyDirector = ({ params }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -343,34 +343,6 @@ const EditDirectorDetails = ({ params }) => {
               {errors.passport && <p className="text-sm text-red-600 mt-1">{errors.passport}</p>}
             </div>
           </div>
-
-          {/* <div className="sm:col-span-2">
-            <label htmlFor="addressProof" className="block text-sm font-medium text-gray-700 mb-2">Address Proof</label>
-            <div className="relative">
-              <input
-                type="file"
-                name="addressProof"
-                id="addressProof"
-                onChange={handleFileChange}
-                className="block w-full text-base sm:text-sm text-gray-700 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              />
-            </div>
-            {errors.addressProof && <p className="text-sm text-red-600 mt-1">{errors.addressProof}</p>}
-          </div>
-
-          <div className="sm:col-span-2">
-            <label htmlFor="passport" className="block text-sm font-medium text-gray-700 mb-2">Passport</label>
-            <div className="relative">
-              <input
-                type="file"
-                name="passport"
-                id="passport"
-                onChange={handleFileChange}
-                className="block w-full text-base sm:text-sm text-gray-700 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              />
-            </div>
-            {errors.passport && <p className="text-sm text-red-600 mt-1">{errors.passport}</p>}
-          </div> */}
         </div>
 
         <div className="flex justify-center space-x-4 mt-6">
@@ -393,4 +365,4 @@ const EditDirectorDetails = ({ params }) => {
   );
 };
 
-export default EditDirectorDetails;
+export default AddCompanyDirector;
