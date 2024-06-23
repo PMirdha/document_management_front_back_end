@@ -1,9 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,18 +10,233 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String   @unique
-  password  String
-  role Role     @default(USER)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
+// Enumeration for user roles
 enum Role {
   USER
   ADMIN
 }
 
+// Enumeration for service types
+enum ServiceType {
+  COMPANY_CREATION
+  CONSULTANCY
+  LEGAL_ADVICE
+  ACCOUNTING
+  TAXATION
+}
+
+// Enumeration for service status
+enum ServiceStatus {
+  PENDING
+  ONGOING
+  COMPLETED
+}
+
+// Enumeration for process status
+enum ProcessStatus {
+  TO_BE_DONE
+  IN_PROGRESS
+  COMPLETED
+}
+
+// Enumeration for application process types
+enum ApplicationProcessType {
+  COMPANY
+  DIRECTOR
+  EMPLOYEE
+}
+
+// User model
+model User {
+  id           Int           @id @default(autoincrement())
+  name         String
+  email        String        @unique
+  password     String
+  role         Role          @default(USER)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  // Relations
+  companies    Company[]
+  userServices UserService[]
+}
+
+// Company model
+model Company {
+  id              Int                  @id @default(autoincrement())
+  name            String
+  description     String
+  address         String?
+  city            String?
+  state           String?
+  country         String?
+  zipCode         String?
+  createdAt       DateTime             @default(now())
+  updatedAt       DateTime             @updatedAt
+  userId          Int
+
+  // Relations
+  user            User                 @relation(fields: [userId], references: [id])
+  directors       Director[]
+  employees       Employee[]
+  applicationProcesses CompanyApplicationProcess[]
+}
+
+// Director model
+model Director {
+  id                     Int                        @id @default(autoincrement())
+  name                   String
+  mobile                 String
+  email                  String?
+  position               String?
+  createdAt              DateTime                   @default(now())
+  updatedAt              DateTime                   @updatedAt
+  companyId              Int
+
+  // Relations
+  company                Company                    @relation(fields: [companyId], references: [id])
+  applicationProcesses   DirectorApplicationProcess[]
+}
+
+// Employee model
+model Employee {
+  id                     Int                        @id @default(autoincrement())
+  firstName              String
+  lastName               String
+  email                  String                     @unique
+  mobile                 String
+  position               String?
+  startDate              DateTime
+  createdAt              DateTime                   @default(now())
+  updatedAt              DateTime                   @updatedAt
+  companyId              Int
+
+  // Relations
+  company                Company                    @relation(fields: [companyId], references: [id])
+  applicationProcesses   EmployeeApplicationProcess[]
+}
+
+// Service model
+model Service {
+  id                     Int                        @id @default(autoincrement())
+  name                   String
+  description            String
+  type                   ServiceType
+  createdAt              DateTime                   @default(now())
+  updatedAt              DateTime                   @updatedAt
+
+  // Relations
+  userServices           UserService[]
+  documents              Document[]
+}
+
+// UserService model
+model UserService {
+  id                     Int                        @id @default(autoincrement())
+  status                 ServiceStatus
+  userId                 Int
+  serviceId              Int
+  startedAt              DateTime                   @default(now())
+  completedAt            DateTime?
+  createdAt              DateTime                   @default(now())
+  updatedAt              DateTime                   @updatedAt
+
+  // Relations
+  user                   User                       @relation(fields: [userId], references: [id])
+  service                Service                    @relation(fields: [serviceId], references: [id])
+}
+
+// CompanyApplicationProcess model
+model CompanyApplicationProcess {
+  id                     Int                        @id @default(autoincrement())
+  status                 ProcessStatus
+  companyId              Int
+  createdAt              DateTime                   @default(now())
+  updatedAt              DateTime                   @updatedAt
+
+  // Relations
+  company                Company                    @relation(fields: [companyId], references: [id])
+  documents              CompanyApplicationProcessDocument[]
+}
+
+// CompanyApplicationProcessDocument model
+model CompanyApplicationProcessDocument {
+  id                          Int                        @id @default(autoincrement())
+  path                        String
+  companyApplicationProcessId Int
+  documentId                  Int
+  createdAt                   DateTime                   @default(now())
+  updatedAt                   DateTime                   @updatedAt
+
+  // Relations
+  applicationProcess          CompanyApplicationProcess  @relation(fields: [companyApplicationProcessId], references: [id])
+  document                    Document                   @relation(fields: [documentId], references: [id])
+}
+
+// EmployeeApplicationProcess model
+model EmployeeApplicationProcess {
+  id                     Int                        @id @default(autoincrement())
+  status                 ProcessStatus
+  employeeId             Int
+  createdAt              DateTime                   @default(now())
+  updatedAt              DateTime                   @updatedAt
+
+  // Relations
+  employee               Employee                   @relation(fields: [employeeId], references: [id])
+  documents              EmployeeApplicationProcessDocument[]
+}
+
+// EmployeeApplicationProcessDocument model
+model EmployeeApplicationProcessDocument {
+  id                          Int                        @id @default(autoincrement())
+  path                        String
+  employeeApplicationProcessId Int
+  documentId                  Int
+  createdAt                   DateTime                   @default(now())
+  updatedAt                   DateTime                   @updatedAt
+
+  // Relations
+  applicationProcess          EmployeeApplicationProcess @relation(fields: [employeeApplicationProcessId], references: [id])
+  document                    Document                   @relation(fields: [documentId], references: [id])
+}
+
+// DirectorApplicationProcess model
+model DirectorApplicationProcess {
+  id                     Int                        @id @default(autoincrement())
+  status                 ProcessStatus
+  directorId             Int
+  createdAt              DateTime                   @default(now())
+  updatedAt              DateTime                   @updatedAt
+
+  // Relations
+  director               Director                   @relation(fields: [directorId], references: [id])
+  documents              DirectorApplicationProcessDocument[]
+}
+
+// DirectorApplicationProcessDocument model
+model DirectorApplicationProcessDocument {
+  id                          Int                        @id @default(autoincrement())
+  path                        String
+  directorApplicationProcessId Int
+  documentId                  Int
+  createdAt                   DateTime                   @default(now())
+  updatedAt                   DateTime                   @updatedAt
+
+  // Relations
+  applicationProcess          DirectorApplicationProcess @relation(fields: [directorApplicationProcessId], references: [id])
+  document                    Document                   @relation(fields: [documentId], references: [id])
+}
+
+// Document model
+model Document {
+  id                          Int                        @id @default(autoincrement())
+  title                       String
+  description                 String
+  serviceId                   Int
+
+  // Relations
+  service                     Service                    @relation(fields: [serviceId], references: [id])
+  companyApplicationProcessDocuments  CompanyApplicationProcessDocument[]
+  employeeApplicationProcessDocuments  EmployeeApplicationProcessDocument[]
+  directorApplicationProcessDocuments  DirectorApplicationProcessDocument[]
+}

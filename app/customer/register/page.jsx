@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 
-const CustomerLogin = () => {
+const CustomerRegister = () => {
   return (
     <div className="container">
       <section className="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
@@ -17,19 +17,50 @@ const CustomerLogin = () => {
                   <span className="d-none d-lg-block">NiceAdmin</span>
                 </Link>
               </div>
-
               <div className="card mb-3">
                 <div className="card-body">
                   <div className="pt-4 pb-2">
                     <h5 className="card-title text-center pb-0 fs-4">
-                      Login to Your Account
+                      Create an Account
                     </h5>
                     <p className="text-center small">
-                      Enter your username & password to login
+                      Enter your personal details to create account
                     </p>
                   </div>
 
                   <form className="row g-3 needs-validation" noValidate>
+                    <div className="col-12">
+                      <label htmlFor="yourName" className="form-label">
+                        Your Name
+                      </label>
+                      <input
+                        type="text"
+                        name="name"
+                        className="form-control"
+                        id="yourName"
+                        required
+                      />
+                      <div className="invalid-feedback">
+                        Please, enter your name!
+                      </div>
+                    </div>
+
+                    <div className="col-12">
+                      <label htmlFor="yourEmail" className="form-label">
+                        Your Email
+                      </label>
+                      <input
+                        type="email"
+                        name="email"
+                        className="form-control"
+                        id="yourEmail"
+                        required
+                      />
+                      <div className="invalid-feedback">
+                        Please enter a valid Email adddress!
+                      </div>
+                    </div>
+
                     <div className="col-12">
                       <label htmlFor="yourUsername" className="form-label">
                         Username
@@ -49,7 +80,7 @@ const CustomerLogin = () => {
                           required
                         />
                         <div className="invalid-feedback">
-                          Please enter your username.
+                          Please choose a username.
                         </div>
                       </div>
                     </div>
@@ -74,30 +105,33 @@ const CustomerLogin = () => {
                       <div className="form-check">
                         <input
                           className="form-check-input"
+                          name="terms"
                           type="checkbox"
-                          name="remember"
-                          value="true"
-                          id="rememberMe"
+                          value=""
+                          id="acceptTerms"
+                          required
                         />
                         <label
                           className="form-check-label"
-                          htmlFor="rememberMe"
+                          htmlFor="acceptTerms"
                         >
-                          Remember me
+                          I agree and accept the{" "}
+                          <Link href="#">terms and conditions</Link>
                         </label>
+                        <div className="invalid-feedback">
+                          You must agree before submitting.
+                        </div>
                       </div>
                     </div>
                     <div className="col-12">
                       <button className="btn btn-primary w-100" type="submit">
-                        Login
+                        Create Account
                       </button>
                     </div>
                     <div className="col-12">
                       <p className="small mb-0">
-                        Don&apost have account?
-                        <Link href={"/admin/register"}>
-                          Create an account
-                        </Link>{" "}
+                        Already have an account?{" "}
+                        <Link href={"/admin/"}>Log in</Link>
                       </p>
                     </div>
                   </form>
@@ -111,4 +145,4 @@ const CustomerLogin = () => {
   );
 };
 
-export default CustomerLogin;
+export default CustomerRegister;

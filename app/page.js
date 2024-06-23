@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { db } from "../repository/models";
+import { db } from "../repository/db";
 
 export default function Home() {
   return (
