@@ -1,6 +1,8 @@
 import Link from "next/link";
 import React from "react";
 
+import CustomerLoginFormComponent from "./customerLoginFormComponent";
+
 const CustomerLogin = () => {
   return (
     <div className="container">
@@ -28,10 +30,9 @@ const CustomerLogin = () => {
                       Enter your username & password to login
                     </p>
                   </div>
-
-                  <form className="row g-3 needs-validation" noValidate>
+                  <CustomerLoginFormComponent>
                     <div className="col-12">
-                      <label htmlFor="yourUsername" className="form-label">
+                      <label htmlFor="userName" className="form-label">
                         Username
                       </label>
                       <div className="input-group has-validation">
@@ -43,9 +44,9 @@ const CustomerLogin = () => {
                         </span>
                         <input
                           type="text"
-                          name="username"
+                          name="userName"
                           className="form-control"
-                          id="yourUsername"
+                          id="userName"
                           required
                         />
                         <div className="invalid-feedback">
@@ -95,12 +96,12 @@ const CustomerLogin = () => {
                     <div className="col-12">
                       <p className="small mb-0">
                         Don&apost have account?
-                        <Link href={"/admin/register"}>
+                        <Link href={"/customer/register"}>
                           Create an account
                         </Link>{" "}
                       </p>
                     </div>
-                  </form>
+                  </CustomerLoginFormComponent>
                 </div>
               </div>
             </div>
