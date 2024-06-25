@@ -12,10 +12,7 @@ const DashboardSideBar = () => {
         </li>
 
         <li className="nav-item">
-          <Link
-            className="nav-link collapsed"
-            href="/admin/dashboard/companies"
-          >
+          <Link className="nav-link collapsed" href="/admin/dashboard/company">
             <i className="bi bi-layout-text-window-reverse"></i>
             <span>Companies</span>
           </Link>

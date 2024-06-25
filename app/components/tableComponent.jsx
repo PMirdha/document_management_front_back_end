@@ -218,7 +218,7 @@ const TableComponent = ({ data }) => {
                 <td className="px-6 py-4 border-b border-gray-200 text-left">
                   <div className="flex space-x-2">
                     <Link
-                      href={`/admin/dashboard/companies/${item.id}`}
+                      href={`/admin/dashboard/company/${item.id}`}
                       className="text-blue-600 hover:text-blue-900"
                     >
                       <EyeIcon className="h-5 w-5" />

@@ -30,7 +30,7 @@ const Companies = () => {
   const breadCrumbLinkDetails = [
     { link: "/", title: "Home" },
     { link: "/admin/dasboard", title: "Dashboard" },
-    { link: "/admin/dasboard/companies", title: "Companies", isActive: true },
+    { link: "/admin/dasboard/company", title: "Companies", isActive: true },
   ];
   return (
     <>
